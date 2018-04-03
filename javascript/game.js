@@ -11,6 +11,14 @@ $(' document ').ready(function() {
     //game status variable
     var gameOver = false;
 
+    //array of different crystal images
+    var crystalImgs = [
+        "images/green-crystal.png",
+        "images/yellow-crystals.png",
+        "images/crystal-verde.png",
+        "images/blue-crystals.png",
+    ]
+
     //array of different div classes for the crystals
     var divClass = [
         'div-class1',
@@ -19,18 +27,26 @@ $(' document ').ready(function() {
         'div-class4'
     ];
 
-    $('#number-to-guess').text(targetNumber);
+    // $('#number-to-guess').text(targetNumber);
     // $('#player-score').text(playerScore);
 
     //make a function to start the game
     function startGame() {
         playerScore = 0;
+        targetNumber = Math.floor(Math.random() * 100);
+        $('#number-to-guess').text(targetNumber);
         if(!gameOver) {
             for(var i = 0; i < 4; i++) {
                 number = Math.floor(Math.random() * 15);
                 randomNumbers.push(number);
-                imageCrystal = $('<div>');
-                imageCrystal.addClass('div-class');
+                //add the crystal images to the page
+                var imageCrystal = $("<img>");
+                imageCrystal.addClass("crystal-image");
+                imageCrystal.attr("src", crystalImgs[i]);
+
+
+                // imageCrystal = $('<div>');
+                // imageCrystal.addClass('div-class');
                 // imageCrystal.addClass(divClass[i]);
                 // imageCrystal.attr('data-crystalValue', numberOptions[i]);
                 imageCrystal.attr('data-crystalValue', randomNumbers[i]);
@@ -42,7 +58,7 @@ $(' document ').ready(function() {
  
     //event listener for crystal clicks
     
-    $('#crystals').on('click', '.div-class', function() {
+    $('#crystals').on('click', '.crystal-image', function() {
         if(gameOver === false) {
             var crystalValue = ($(this).attr('data-crystalValue'));
             crystalValue = parseInt(crystalValue);
@@ -52,18 +68,17 @@ $(' document ').ready(function() {
             console.log(crystalValue);
             //logic to check if targetNumber is equal to the playerScore click value
                 if(playerScore === targetNumber) {
-                    alert('you win');
                     gameOver = true;
+                    $("#game-status").text("You win!");
+                    $("#press-enter").text("Press enter to start a new game");
                     gameFinished();
                 } else if(playerScore > targetNumber) {
                     gameFinished();
-                    alert('you lose');
+                    $("#game-status").text("You lose");
+                    $("#press-enter").text("Press enter to start a new game");
                     gameOver = true;
                 }
         }
-        
-
-        
     });
 
     //make a function to check the status of the game
@@ -75,6 +90,8 @@ $(' document ').ready(function() {
                 randomNumbers = [];
                 $("#player-score").text("");
                 $("#crystals").text("");
+                $("#game-status").text("");
+                $("#press-enter").text("");
                 gameOver = false;
                 startGame();
             }
