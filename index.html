@@ -7,6 +7,8 @@
     <title>Crystals Game</title>
     <!-- bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Orbitron" rel="stylesheet">
     <!-- custom css -->
     <link rel="stylesheet" href="assets/style.css">
     <!-- jquery cdn -->
@@ -20,18 +22,38 @@
 
 <body>
 
-    <h1>crystals game</h1>
-    <br>
-    <h2>number to guess: <span id="number-to-guess"></span></h2>
-    
-    <div id="crystals"></div>
+    <div class="container">
 
-    <h3>Player score: <span id="player-score"></span></h3>  
-    
-    <h1 id="game-status"></h1>
+        <div class="row my-4">
+            <div class="col-6">
+                <h1>crystals game</h1>
+            </div>
+            <div class="col-6">
+                <h2>number to guess: <span id="number-to-guess"></span></h2>
+            </div>        
+        </div>
+            
+        <div class="row p-4 text-center">
+            <div class="col-12">
+                <div id="crystals"></div>
+            </div>
+        </div>
 
-    <h3 id="press-enter"></h3>
-
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3>Player score: <span id="player-score"></span></h3> 
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-12">
+                <h1 id="game-status"></h1>
+                <h3 id="press-enter"></h3>
+            </div>
+        </div>
     
+
+    </div>
+
 </body>
 </html>
