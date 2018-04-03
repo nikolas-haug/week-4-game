@@ -6,11 +6,10 @@ $(' document ').ready(function() {
     playerScore = 0;
     //variable for the number to guess
     var targetNumber = 50;
-    //available number value options for each crystal
-    var numberOptions = [5, 10, 15, 20];
-
     //random number variables
     var randomNumbers = [];
+    //game status variable
+    var gameOver = false;
 
     //array of different div classes for the crystals
     var divClass = [
@@ -24,41 +23,66 @@ $(' document ').ready(function() {
     // $('#player-score').text(playerScore);
 
     //make a function to start the game
-    
-    for(var i = 0; i < numberOptions.length; i++) {
-        number = Math.floor(Math.random() * 20);
-        randomNumbers.push(number);
-        imageCrystal = $('<div>');
-        imageCrystal.addClass('div-class');
-        // imageCrystal.addClass(divClass[i]);
-        // imageCrystal.attr('data-crystalValue', numberOptions[i]);
-        imageCrystal.attr('data-crystalValue', randomNumbers[i]);
-        $('#crystals').append(imageCrystal);
-
+    function startGame() {
+        playerScore = 0;
+        if(!gameOver) {
+            for(var i = 0; i < 4; i++) {
+                number = Math.floor(Math.random() * 15);
+                randomNumbers.push(number);
+                imageCrystal = $('<div>');
+                imageCrystal.addClass('div-class');
+                // imageCrystal.addClass(divClass[i]);
+                // imageCrystal.attr('data-crystalValue', numberOptions[i]);
+                imageCrystal.attr('data-crystalValue', randomNumbers[i]);
+                $('#crystals').append(imageCrystal);
+            }
+        } 
     }
 
+ 
+    //event listener for crystal clicks
+    
     $('#crystals').on('click', '.div-class', function() {
-
-        // alert('you clicked this ' + playerScore  + ' times!');
-        
-        var crystalValue = ($(this).attr('data-crystalValue'));
-        crystalValue = parseInt(crystalValue);
-        playerScore += crystalValue;
-        $('#player-score').text(playerScore);
-        console.log(crystalValue);
-
-        //logic to check if targetNumber is equal to the playerScore click value
-        if(playerScore === targetNumber) {
-            alert('you win');
-        } else if(playerScore > targetNumber) {
-            alert('you lose');
+        if(gameOver === false) {
+            var crystalValue = ($(this).attr('data-crystalValue'));
+            crystalValue = parseInt(crystalValue);
+            playerScore += crystalValue;
+            $('#player-score').text(playerScore);
+            //log the click results
+            console.log(crystalValue);
+            //logic to check if targetNumber is equal to the playerScore click value
+                if(playerScore === targetNumber) {
+                    alert('you win');
+                    gameOver = true;
+                    gameFinished();
+                } else if(playerScore > targetNumber) {
+                    gameFinished();
+                    alert('you lose');
+                    gameOver = true;
+                }
         }
+        
+
+        
     });
 
     //make a function to check the status of the game
-    function gameStatus() {
-
+    function gameFinished() {
+        document.onkeyup = function(event) {
+            var userKey = event.key;
+            if(gameOver && userKey === "Enter") {
+                playerScore = 0;
+                randomNumbers = [];
+                $("#player-score").text("");
+                $("#crystals").text("");
+                gameOver = false;
+                startGame();
+            }
+        }
     }
+
+    //call function to start the game
+    startGame();
 
 });
 
