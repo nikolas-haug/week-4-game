@@ -4,31 +4,26 @@ $(' document ').ready(function() {
 
     //variable for the player's scored
     playerScore = 0;
-    //variable for the number to guess
-    // var targetNumber = 50;
-    //random number variables
+    //random numbers for crystals array variable
     var randomNumbers = [];
     //game status variable
     var gameOver = false;
 
     //array of different crystal images
     var crystalImgs = [
-        "images/green-crystal.png",
-        "images/yellow-crystals.png",
+        "images/red-jewel.png",
+        "images/deepblue-jewel.png",
         "images/crystal-verde.png",
-        "images/blue-crystals.png",
+        "images/purple-jewel.png",
     ]
 
-    //array of different div classes for the crystals
-    var divClass = [
-        'div-class1',
-        'div-class2',
-        'div-class3',
-        'div-class4'
-    ];
-
-    // $('#number-to-guess').text(targetNumber);
-    // $('#player-score').text(playerScore);
+    //array of different div classes for the crystals (*previous version)
+    // var divClass = [
+    //     'div-class1',
+    //     'div-class2',
+    //     'div-class3',
+    //     'div-class4'
+    // ];
 
     //make a function to start the game
     function startGame() {
@@ -37,7 +32,8 @@ $(' document ').ready(function() {
         targetNumber = Math.floor((Math.random() * 100) + 1);
         $('#number-to-guess').text(targetNumber);
         if(!gameOver) {
-            for(var i = 0; i < 4; i++) {
+            for(var i = 0; i < crystalImgs.length; i++) {
+                //generate random crystal values and add to randomNumber array
                 number = Math.floor((Math.random() * 10) + 1);
                 console.log(number);
                 randomNumbers.push(number);
@@ -46,7 +42,7 @@ $(' document ').ready(function() {
                 imageCrystal.addClass("crystal-image");
                 imageCrystal.attr("src", crystalImgs[i]);
 
-
+                //*previous version
                 // imageCrystal = $('<div>');
                 // imageCrystal.addClass('div-class');
                 // imageCrystal.addClass(divClass[i]);
@@ -58,9 +54,7 @@ $(' document ').ready(function() {
         } 
     }
 
- 
     //event listener for crystal clicks
-    
     $('#crystals').on('click', '.crystal-image', function() {
         if(gameOver === false) {
             var crystalValue = ($(this).attr('data-crystalValue'));
@@ -70,6 +64,7 @@ $(' document ').ready(function() {
             //log the click results
             console.log(crystalValue);
             //logic to check if targetNumber is equal to the playerScore click value
+            // TO DO make separate function for score check
                 if(playerScore === targetNumber) {
                     gameOver = true;
                     $("#game-status").text("You win!");
@@ -84,17 +79,15 @@ $(' document ').ready(function() {
         }
     });
 
-    //make a function to check the status of the game
+    //make a function to pause the game before player restarts
     function gameFinished() {
         document.onkeyup = function(event) {
             var userKey = event.key;
             if(gameOver && userKey === "Enter") {
+                //reset the variable values
                 playerScore = 0;
                 randomNumbers = [];
-                $("#player-score").text("");
-                $("#crystals").text("");
-                $("#game-status").text("");
-                $("#press-enter").text("");
+                $("#player-score, #crystals, #game-status, #press-enter").text("");
                 gameOver = false;
                 startGame();
             }
