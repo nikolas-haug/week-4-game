@@ -5,7 +5,7 @@ $(' document ').ready(function() {
     //variable for the player's scored
     playerScore = 0;
     //variable for the number to guess
-    var targetNumber = 50;
+    // var targetNumber = 50;
     //random number variables
     var randomNumbers = [];
     //game status variable
@@ -33,11 +33,13 @@ $(' document ').ready(function() {
     //make a function to start the game
     function startGame() {
         playerScore = 0;
-        targetNumber = Math.floor(Math.random() * 100);
+        $('#player-score').text(playerScore);
+        targetNumber = Math.floor((Math.random() * 100) + 1);
         $('#number-to-guess').text(targetNumber);
         if(!gameOver) {
             for(var i = 0; i < 4; i++) {
-                number = Math.floor(Math.random() * 15);
+                number = Math.floor((Math.random() * 10) + 1);
+                console.log(number);
                 randomNumbers.push(number);
                 //add the crystal images to the page
                 var imageCrystal = $("<img>");
@@ -49,6 +51,7 @@ $(' document ').ready(function() {
                 // imageCrystal.addClass('div-class');
                 // imageCrystal.addClass(divClass[i]);
                 // imageCrystal.attr('data-crystalValue', numberOptions[i]);
+
                 imageCrystal.attr('data-crystalValue', randomNumbers[i]);
                 $('#crystals').append(imageCrystal);
             }

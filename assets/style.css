@@ -41,3 +41,19 @@ body {
     margin: 10px;
     display: inline-block;
 }
+
+h1 {
+    text-shadow: 2px 2px 8px rgba(150, 150, 150, 1);
+}
+
+#number-to-guess {
+    color: #fff;
+}
+
+#player-score {
+    color: blue;
+}
+
+#press-enter {
+    color: blue;
+}
