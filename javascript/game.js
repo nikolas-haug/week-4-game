@@ -3,7 +3,13 @@
 $(' document ').ready(function() {
 
     //variable for the player's scored
-    playerScore = 0;
+    var playerScore = 0;
+    //variable for player wins
+    var playerWins = 0;
+    //variable for player losses
+    var playerLosses = 0;
+    //variable for total number of crystals collected by player
+    var collectedCrystals = 0;
     //random numbers for crystals array variable
     var randomNumbers = [];
     //game status variable
@@ -27,9 +33,12 @@ $(' document ').ready(function() {
 
     //make a function to start the game
     function startGame() {
-        playerScore = 0;
+        // var playerScore = 0;
+        $('#collected').text(collectedCrystals);
         $('#player-score').text(playerScore);
-        targetNumber = Math.floor((Math.random() * 101) + 20);
+        $('#wins').text(playerWins);
+        $('#losses').text(playerLosses);
+        targetNumber = Math.floor((Math.random() * 100) + 21);
         $('#number-to-guess').text(targetNumber);
         if(!gameOver) {
             for(var i = 0; i < crystalImgs.length; i++) {
@@ -67,10 +76,13 @@ $(' document ').ready(function() {
             // TO DO make separate function for score check
                 if(playerScore === targetNumber) {
                     gameOver = true;
+                    collectedCrystals += targetNumber;
+                    playerWins++;
                     $("#game-status").text("You win!");
                     $("#press-enter").text("Press enter to start a new game");
                     gameFinished();
                 } else if(playerScore > targetNumber) {
+                    playerLosses++;
                     gameFinished();
                     $("#game-status").text("You lose");
                     $("#press-enter").text("Press enter to start a new game");

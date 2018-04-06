@@ -15,6 +15,10 @@ h1 {
     text-shadow: 2px 2px 8px rgba(150, 150, 150, 1);
 }
 
+h5 {
+    text-shadow: 1px 1px 4px rgba(150, 150, 150, 1);    
+}
+
 #number-to-guess {
     color: #fff;
 }
