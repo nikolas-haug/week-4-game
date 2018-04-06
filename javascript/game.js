@@ -29,12 +29,12 @@ $(' document ').ready(function() {
     function startGame() {
         playerScore = 0;
         $('#player-score').text(playerScore);
-        targetNumber = Math.floor((Math.random() * 100) + 1);
+        targetNumber = Math.floor((Math.random() * 101) + 20);
         $('#number-to-guess').text(targetNumber);
         if(!gameOver) {
             for(var i = 0; i < crystalImgs.length; i++) {
                 //generate random crystal values and add to randomNumber array
-                number = Math.floor((Math.random() * 10) + 1);
+                number = Math.floor((Math.random() * 12) + 1);
                 console.log(number);
                 randomNumbers.push(number);
                 //add the crystal images to the page
